@@ -14,12 +14,12 @@ const configService = require('./services/ConfigService')
 const GoogleRecaptcha = require('google-recaptcha')
 
 const googleRecaptcha = 
-  config.RECAPTCHA_SECRET_KEY 
-  ? new GoogleRecaptcha({secret: config.RECAPTCHA_SECRET_KEY})
+  configService.getValue('RECAPTCHA_SECRET_KEY')
+  ? new GoogleRecaptcha({secret: configService.getValue('RECAPTCHA_SECRET_KEY')})
   : undefined
 
 module.exports.handle = (event, context, callback) => {
-  const encrypter = new Encrypter(getEncryptionKey())
+  const encrypter = new Encrypter(configService.getValue('ENCRYPTION_KEY'))
   const validator = new Validator()
   const request = new Request(event, encrypter, validator, googleRecaptcha)
 
