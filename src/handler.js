@@ -11,10 +11,17 @@ const Validator = require('./common/Validator')
 const emailService = require('./services/EmailService')
 const configService = require('./services/ConfigService')
 
+const GoogleRecaptcha = require('google-recaptcha')
+
+const googleRecaptcha = 
+  config.RECAPTCHA_SECRET_KEY 
+  ? new GoogleRecaptcha({secret: config.RECAPTCHA_SECRET_KEY})
+  : undefined
+
 module.exports.handle = (event, context, callback) => {
-  const encrypter = new Encrypter(configService.getValue('ENCRYPTION_KEY'))
+  const encrypter = new Encrypter(getEncryptionKey())
   const validator = new Validator()
-  const request = new Request(event, encrypter, validator)
+  const request = new Request(event, encrypter, validator, googleRecaptcha)
 
   let paramCount = Object.keys(request.userParameters).length
   Log.info(`${request.responseFormat} request received with ${paramCount} parameters`)
