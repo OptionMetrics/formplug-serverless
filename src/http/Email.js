@@ -7,7 +7,6 @@ class Email {
 
   build (recipients, userParameters) {
     this._validateArn()
-
     return {
       Source: this._buildSenderSource(),
       ReplyToAddresses: recipients.replyTo,
@@ -53,7 +52,7 @@ class Email {
   _buildSenderSource () {
     let senderArnAsArray = this.senderArn.split('/')
     let email = senderArnAsArray[senderArnAsArray.length - 1]
-    return `Formplug <${email}>`
+    return `OptionMetrics Website <${email}>`
   }
 
   _buildMessageBody (userParameters) {

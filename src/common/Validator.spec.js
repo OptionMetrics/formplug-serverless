@@ -74,4 +74,9 @@ describe('Validator', function () {
     const testSubject = new Validator()
     assert.isNotTrue(testSubject.isWebsite('https://example'))
   })
+
+  it('should validate localhost with port', function() {
+    const testSubject = new Validator()
+    assert.isTrue(testSubject.isWebsite('localhost:1313'))
+  })
 })

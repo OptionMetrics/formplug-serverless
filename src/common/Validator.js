@@ -1,7 +1,8 @@
 class Validator {
   isWebsite (string) {
     let regex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
-    return regex.test(string)
+    let regexLocal = /localhost(:[0-9]+){1,1}/
+    return regex.test(string) || regexLocal.test(string)
   }
 
   isEmail (string) {
